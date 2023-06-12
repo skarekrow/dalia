@@ -8,3 +8,6 @@ edition = "2021"
 name = "dalia"
 path = "api/src/main.rs"
 
+[dependencies]
+actix-web = "4.3.1"
+
