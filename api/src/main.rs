@@ -10,7 +10,7 @@ use structs::Root;
 struct Config {
     #[envconfig(from = "DALIA_APIKEY", default = "REPLACE_ME")]
     pub api_key: String,
-    #[envconfig(from = "TZ", default = "America/Chicago")]
+    #[envconfig(from = "TZ", default = "Chicago")]
     pub tz: String,
 }
 
