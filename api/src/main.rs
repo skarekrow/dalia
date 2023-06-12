@@ -1,4 +1,18 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use std::env;
+
+use actix_web::{get, middleware, web, App, HttpResponse, HttpServer, Responder};
+
+mod structs;
+use envconfig::Envconfig;
+use structs::Root;
+
+#[derive(Envconfig)]
+struct Config {
+    #[envconfig(from = "DALIA_APIKEY", default = "REPLACE_ME")]
+    pub api_key: String,
+    #[envconfig(from = "TZ", default = "America/Chicago")]
+    pub tz: String,
+}
 
 #[get("/")]
 async fn version() -> impl Responder {
@@ -6,11 +20,19 @@ async fn version() -> impl Responder {
     HttpResponse::Ok().body("API Version Information.")
 }
 
-#[get("/weather")]
-async fn weather() -> impl Responder {
-    // TODO: Get ZIP Code from GET request and reach out to WeatherAPI
-    //       Need to use WeatherAPI key from config.toml
-    HttpResponse::Ok().body("Retrieving weather!")
+#[get("/current_weather")]
+async fn current_weather() -> impl Responder {
+    // TODO: Ugly, let's figure out config better
+    let config = Config::init_from_env().unwrap();
+    let url = format!(
+        "https://api.weatherapi.com/v1/current.json?key={apikey}&q={timezone}&aqi=no",
+        apikey = config.api_key,
+        timezone = config.tz
+    );
+    let response = reqwest::get(&url).await;
+    let weather: Root = response.unwrap().json().await.unwrap();
+
+    HttpResponse::Ok().json(weather)
 }
 
 async fn health() -> impl Responder {
@@ -21,10 +43,14 @@ async fn health() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env::set_var("RUST_LOG", "actix_web=debug,actix_server=info");
+    env_logger::init();
+
     HttpServer::new(|| {
         App::new()
+            .wrap(middleware::Logger::default())
             .service(version)
-            .service(weather)
+            .service(current_weather)
             .route("/health", web::get().to(health))
     })
     .bind(("127.0.0.1", 8080))?
