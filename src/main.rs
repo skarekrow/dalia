@@ -96,5 +96,7 @@ pub struct AirQuality {
 }
 
 fn main() {
+    let api_key = env!("DALIA_API", "$DALIA_API is not set");
+
     println!("Hello, world!");
 }
