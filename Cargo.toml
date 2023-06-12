@@ -1,13 +1,14 @@
-[package]
-name = "dalia"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
+members = [
+  "api",
+  "ui",
+]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-[[bin]]
-name = "dalia"
-path = "api/src/main.rs"
+# [[bin]]
+# name = "dalia"
+# path = "api/src/main.rs"
 
-[dependencies]
-actix-web = "4.3.1"
+# [dependencies]
+# actix-web = "4.3.1"
 
