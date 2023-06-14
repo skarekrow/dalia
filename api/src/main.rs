@@ -5,7 +5,7 @@ use qstring::QString;
 
 mod structs;
 use envconfig::Envconfig;
-use structs::Root;
+use structs::CurrentWeather;
 
 #[derive(Envconfig)]
 struct Config {
@@ -31,7 +31,19 @@ async fn current_weather() -> impl Responder {
         timezone = config.tz
     );
     let response = reqwest::get(&url).await;
-    let weather: Root = response.unwrap().json().await.unwrap();
+    let mut weather: CurrentWeather = response.unwrap().json().await.unwrap();
+
+    if weather.location.tz_id.contains("America/") {
+        weather.current.temp = Some(weather.current.temp_f);
+        weather.current.wind_speed = Some(weather.current.wind_mph);
+        weather.current.feels_like = Some(weather.current.feelslike_f);
+        weather.current.gust = Some(weather.current.gust_mph);
+    } else {
+        weather.current.temp = Some(weather.current.temp_c);
+        weather.current.wind_speed = Some(weather.current.wind_kph);
+        weather.current.feels_like = Some(weather.current.feelslike_c);
+        weather.current.gust = Some(weather.current.gust_kph);
+    }
 
     HttpResponse::Ok().json(weather)
 }
