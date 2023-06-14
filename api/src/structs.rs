@@ -2,15 +2,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CurrentWeather {
-    pub location: CurrentLocation,
+pub struct Weather {
+    pub location: Location,
     pub current: Current,
-    pub forecast: Option<Forecast>
+    pub forecast: Option<Forecast>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CurrentLocation {
+pub struct Location {
     pub name: String,
     pub region: String,
     pub country: String,
@@ -84,19 +84,18 @@ pub struct Current {
 pub struct Condition {
     pub text: String,
     pub icon: String,
-    pub code: i64,
+    pub code: f64,
 }
-
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Forecast {
-    pub forecastday: Vec<Forecastday>,
+    pub forecastday: Vec<ForecastDay>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Forecastday {
+pub struct ForecastDay {
     pub date: String,
     #[serde(rename = "date_epoch")]
     pub date_epoch: f64,
@@ -176,7 +175,7 @@ pub struct Hour {
     pub temp_f: f64,
     #[serde(rename = "is_day")]
     pub is_day: f64,
-    pub condition: Condition2,
+    pub condition: Condition,
     #[serde(rename = "wind_mph")]
     pub wind_mph: f64,
     #[serde(rename = "wind_kph")]
@@ -228,12 +227,4 @@ pub struct Hour {
     #[serde(rename = "gust_kph")]
     pub gust_kph: f64,
     pub uv: f64,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Condition2 {
-    pub text: String,
-    pub icon: String,
-    pub code: f64,
 }
