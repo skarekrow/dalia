@@ -46,41 +46,38 @@ async fn weather_fn(req : HttpRequest) -> impl Responder {
     // If no q param was given, send a bad request response
     if q_param_get.is_none() {
         return HttpResponse::BadRequest().body("Invalid q param specificed.")
-
-    // Otherwise parse the request
-    } else {
-
-        // Get q & d params
-        let q_param = q_param_get.unwrap();
-        let mut _apiendpoint = "current";
-        let mut _forecast_query = String::new();
-
-        // If the days forecast is specified
-        // then change the endpoint and include the parameter
-        if !d_param_get.is_none(){
-            let d_param = d_param_get.unwrap();
-            _apiendpoint = "forecast";
-            _forecast_query = format!("&days={}", d_param);
-        }
-
-        // Get weatherapi response
-        let config = Config::init_from_env().unwrap();
-        let url = format!(
-            "https://api.weatherapi.com/v1/{endpoint}.json?key={apikey}&q={api_query}{forecast_query}",
-            endpoint = _apiendpoint,
-            apikey = config.api_key,
-            api_query = q_param,
-            forecast_query = _forecast_query
-        );
-
-        // Use struct
-        // TODO: This needs to be modified to include the new forecast
-        let response = reqwest::get(&url).await;
-        let weather: Root = response.unwrap().json().await.unwrap();
-
-        // Return weather results
-        return HttpResponse::Ok().json(weather)
     }
+
+    // Get q & d params
+    let q_param = q_param_get.unwrap();
+    let mut _apiendpoint = "current";
+    let mut _forecast_query = String::new();
+
+    // If the days forecast is specified
+    // then change the endpoint and include the parameter
+    if !d_param_get.is_none(){
+        let d_param = d_param_get.unwrap();
+        _apiendpoint = "forecast";
+        _forecast_query = format!("&days={}", d_param);
+    }
+
+    // Get weatherapi response
+    let config = Config::init_from_env().unwrap();
+    let url = format!(
+        "https://api.weatherapi.com/v1/{endpoint}.json?key={apikey}&q={api_query}{forecast_query}",
+        endpoint = _apiendpoint,
+        apikey = config.api_key,
+        api_query = q_param,
+        forecast_query = _forecast_query
+    );
+
+    // Use struct
+    // TODO: This needs to be modified to include the new forecast
+    let response = reqwest::get(&url).await;
+    let weather: Root = response.unwrap().json().await.unwrap();
+
+    // Return weather results
+    return HttpResponse::Ok().json(weather)
 
 }
 
