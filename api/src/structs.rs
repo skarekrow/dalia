@@ -69,13 +69,13 @@ pub struct Current {
     pub gust_kph: f64,
     // Our fields
     #[serde(rename = "temp")]
-    pub temp: Option<f64>,
+    pub temp: Option<String>,
     #[serde(rename = "wind_speed")]
-    pub wind_speed: Option<f64>,
+    pub wind_speed: Option<String>,
     #[serde(rename = "feels_like")]
-    pub feels_like: Option<f64>,
+    pub feels_like: Option<String>,
     #[serde(rename = "gust")]
-    pub gust: Option<f64>,
+    pub gust: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
