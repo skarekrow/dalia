@@ -2,14 +2,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Root {
-    pub location: Location,
+pub struct CurrentWeather {
+    pub location: CurrentLocation,
     pub current: Current,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Location {
+pub struct CurrentLocation {
     pub name: String,
     pub region: String,
     pub country: String,
@@ -67,6 +67,15 @@ pub struct Current {
     pub gust_mph: f64,
     #[serde(rename = "gust_kph")]
     pub gust_kph: f64,
+    // Our fields
+    #[serde(rename = "temp")]
+    pub temp: Option<String>,
+    #[serde(rename = "wind_speed")]
+    pub wind_speed: Option<String>,
+    #[serde(rename = "feels_like")]
+    pub feels_like: Option<String>,
+    #[serde(rename = "gust")]
+    pub gust: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
