@@ -30,9 +30,9 @@ impl Component for WeatherCard {
 
     fn view(&self) -> Html {
         html! {
-            <div class="flex gap-2 rounded bg-white p-4 shadow lg:flex-col">
+            <div class="weather-card flex gap-2 rounded border-2 backdrop-filter backdrop-blur p-4 shadow lg:flex-col">
                 <img
-                src="https://via.placeholder.com/64"
+                src="http://cdn.weatherapi.com/weather/64x64/day/116.png"
                 alt="Weather Icon"
                 class="h-12 w-12"
                 />
@@ -63,7 +63,7 @@ impl Component for App {
 
     fn view(&self) -> Html {
         html! {
-            <div class="min-h-screen bg-gray-50 text-gray-800">
+            <div class="min-h-screen text-white">
                 <div class="container mx-auto px-4">
                 <p class="absolute top-0 right-0 text-gray-500 p-4">
                     { "Zip: 12345" }
@@ -71,7 +71,7 @@ impl Component for App {
                 <div class="flex min-h-screen flex-col items-center justify-center">
                     <div class="mb-2 flex items-center space-x-4">
                     <img
-                        src="https://via.placeholder.com/128"
+                        src="http://cdn.weatherapi.com/weather/64x64/day/116.png"
                         alt="Weather Icon"
                         class="h-28 w-28"
                     />
