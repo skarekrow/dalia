@@ -38,7 +38,7 @@ impl Component for WeatherCard {
                 />
                 <div>
                 <h2 class="text-xl">{ self.day.clone() }</h2>
-                <p>{ self.temperature.clone() }</p>
+                <p class="weather-text">{ self.temperature.clone() }</p>
                 </div>
             </div>
         }
@@ -63,7 +63,7 @@ impl Component for App {
 
     fn view(&self) -> Html {
         html! {
-            <div class="min-h-screen text-white">
+            <div class="weather-container min-h-screen text-white">
                 <div class="container mx-auto px-4">
                 <p class="absolute top-0 right-0 text-gray-500 p-4 text-2xl">
                     <strong>{ "ZIP: " }</strong> <input type="text" placeholder="27203" class="bg-black p-2 m-2 w-24 text-center" />
@@ -75,19 +75,19 @@ impl Component for App {
                         alt="Weather Icon"
                         class="h-28 w-28"
                     />
-                    <h1 class="text-6xl">{ "33°" }</h1>
+                    <h1 class="weather-text text-6xl">{ "33°C" }</h1>
                     </div>
                     <div class="mb-6">
                     <h2 class="text-4xl">{ "Raleigh, NC" }</h2>
                     </div>
                     <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-7">
-                    <WeatherCard day="Tomorrow" temperature="33°" />
-                    <WeatherCard day="Tuesday" temperature="33°" />
-                    <WeatherCard day="Wednesday" temperature="33°" />
-                    <WeatherCard day="Thursday" temperature="33°" />
-                    <WeatherCard day="Friday" temperature="33°" />
-                    <WeatherCard day="Saturday" temperature="33°" />
-                    <WeatherCard day="Sunday" temperature="33°" />
+                    <WeatherCard day="Tomorrow" temperature="33°C" />
+                    <WeatherCard day="Tuesday" temperature="33°C" />
+                    <WeatherCard day="Wednesday" temperature="33°C" />
+                    <WeatherCard day="Thursday" temperature="33°C" />
+                    <WeatherCard day="Friday" temperature="33°C" />
+                    <WeatherCard day="Saturday" temperature="33°C" />
+                    <WeatherCard day="Sunday" temperature="33°C" />
                     </div>
                 </div>
                 </div>
