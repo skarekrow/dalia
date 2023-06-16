@@ -66,9 +66,9 @@ impl Component for App {
             <div class="weather-container min-h-screen text-white">
                 <div class="container mx-auto px-4">
                 <p class="absolute top-0 right-0 text-gray-500 p-4 text-2xl">
-                    <strong>{ "ZIP: " }</strong> <input type="text" placeholder="27203" class="bg-black p-2 m-2 w-24 text-center" />
+                    <strong>{ "ZIP: " }</strong> <input type="number" placeholder="27203" class="bg-black p-2 m-2 w-24 text-center" />
                 </p>
-                <div class="flex min-h-screen flex-col items-center justify-center">
+                <div id="weather-container" class="flex min-h-screen flex-col items-center justify-center">
                     <div class="mb-2 flex items-center space-x-4">
                     <img
                         src="http://cdn.weatherapi.com/weather/64x64/day/116.png"
