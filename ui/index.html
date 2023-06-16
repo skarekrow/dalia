@@ -26,4 +26,23 @@
 <body>
 </body>
 
+<script>
+        window.addEventListener("load", () => {
+            let isCelsius = true;
+            const weatherContainer = document.getElementById("weather-container");
+
+            weatherContainer.addEventListener("click", () => {
+                isCelsius = !isCelsius;
+                const weatherTexts = document.querySelectorAll(".weather-text");
+                weatherTexts.forEach((weatherText) => {
+                    if (isCelsius) {
+                        weatherText.innerHTML = "33°C";
+                    } else {
+                        weatherText.innerHTML = "91°F";
+                    }
+                });
+            });
+        })
+</script>
+
 </html>
